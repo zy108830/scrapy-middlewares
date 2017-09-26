@@ -7,7 +7,7 @@ head.appendChild(script);
 
 script.onload = function () {
     $(function () {
-        var newlen = 0, scroll_load_time = 3000;
+           var newlen = 0, scroll_load_time = 3000, complete_valid = 0;
         loadingMore();
 
         function loadingMore() {
@@ -16,9 +16,15 @@ script.onload = function () {
             setTimeout(function () {
                 newlen = getItemLength();
                 if (newlen > oldlen) {
+                    complete_valid=0;
                     loadingMore();
                 } else {
-                    loadingCompleteCallback();
+                    if(complete_valid>=3){
+                        loadingCompleteCallback();
+                    }else {
+                        complete_valid++;
+                        loadingMore();
+                    }
                 }
             }, scroll_load_time);
         }
