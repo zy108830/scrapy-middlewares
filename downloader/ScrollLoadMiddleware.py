@@ -10,7 +10,7 @@ class ScrollLoadMiddleware(object):
     def process_request(self, request, spider):
         scroll_load = request.meta.get('scroll_load', False)
         if scroll_load:
-            scroll_timeout = request.meta.get('scroll_timeout', 3)
+            scroll_timeout = request.meta.get('scroll_timeout', 1200)
             spider.browser.get(request.url)
             content = open(os.path.dirname(__file__) + '/js/scroll.js').read()
             spider.browser.execute_script(content)
